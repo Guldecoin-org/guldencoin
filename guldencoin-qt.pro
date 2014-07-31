@@ -19,6 +19,28 @@ CONFIG += thread
 #    BOOST_INCLUDE_PATH, BOOST_LIB_PATH, BDB_INCLUDE_PATH,
 #    BDB_LIB_PATH, OPENSSL_INCLUDE_PATH and OPENSSL_LIB_PATH respectively
 
+#BOOST_LIB_SUFFIX=-gcc46-mt-s-1_55
+#BOOST_INCLUDE_PATH=/home/mindfox/projects/coinlibs/boost_1_55_0
+#BOOST_LIB_PATH=/home/mindfox/projects/coinlibs/boost_1_55_0/stage/lib
+BDB_INCLUDE_PATH=/home/mindfox/projects/coinlibs/db-4.8.30.NC/build_unix
+BDB_LIB_PATH=/home/mindfox/projects/coinlibs/db-4.8.30.NC/build_unix
+OPENSSL_INCLUDE_PATH=/home/mindfox/projects/coinlibs/openssl-1.0.1h/include
+OPENSSL_LIB_PATH=/home/mindfox/projects/coinlibs/openssl-1.0.1h
+
+CONFIG += static
+
+# UNCOMMENT THIS SECTION TO BUILD ON WINDOWS
+# Change paths if needed, these use the foocoin/deps.git repository locations
+
+
+greaterThan(QT_MAJOR_VERSION, 4) {
+    QT += widgets
+DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0
+}
+
+
+
+
 OBJECTS_DIR = build
 MOC_DIR = build
 UI_DIR = build
