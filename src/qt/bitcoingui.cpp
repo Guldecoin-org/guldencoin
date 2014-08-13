@@ -68,42 +68,16 @@ BitcoinGUI::BitcoinGUI(QWidget *parent) :
     rpcConsole(0),
     prevBlocks(0)
 {
-    resize(958, 550);
+    resize(958, 500);
     //setFixedSize(958, 550);
-    //restoreWindowGeometry();
+    restoreWindowGeometry();
     setWindowTitle(tr("Guldencoin") + " - " + tr("Wallet"));
-
     qApp->setStyleSheet(
-                "QMainWindow { background:rgb(255,255,255);font-family:'Open Sans,sans-serif'; } " \
-                "WalletFrame { background:rgb(255,255,255); border: none; } " \
-                "#mainframe {height: 200px; background: black; } " \
                 "#frame_coinamount { background:rgb(0,51,102); color: white; border: none; } " \
                 "#frame_coinamount QLabel { color: #ffffff; } " \
-                "#frame { } QToolBar QLabel { padding-top:15px;padding-bottom:10px;margin:0px; border: 0px;  border-color: yellow;} " \
-                "#spacer { background:rgb(255,255,255);border:none; } " \
-                "QDockWidget { background: rgb(0,51,102); } " \
-                "#toolbar { width:100%; height: 60px; padding-top:20px; background: rgb(0,51,102); text-align: center; border: 0px; padding: 0px; margin: 0px; } " \
-                    "QToolBar QToolButton { font-family:Open Sans;padding-left:20px;padding-top:10px;padding-bottom:10px; width:166px; color: white; text-align: center; background-color: rgb(0,51,102); border: none; border-bottom: 2px solid rgb(0,51,102); } " \
-                    "QToolBar QToolButton:hover { color: orange; border-bottom-color: rgb(240,130,57);} " \
-                    "QToolBar QToolButton:pressed {color: yellow; border-bottom-color: white;} " \
-                    "QToolBar QToolButton:checked { color: white; border-bottom-color: rgb(240,130,57);} " \
-                    "#separator { background-color: black } " \
-                "#labelMiningIcon { padding-left:5px;font-family:Open Sans;width:100%;font-size:10px;text-align:center;color:grey; } " \
-                "QMenu { background: rgb(255,255,255); color:black; padding-bottom:10px; } " \
-                "QMenu::item { margin: 4px; padding-bottom:12px;padding-top:12px;padding-left:25px;padding-right:15px;color:rgb(0,51,102); background-color: transparent; } " \
-                "QMenu::item:selected { color: white; background-color: rgb(240,130,57); } " \
-                "QMenuBar { background: rgb(255,255,255); color:black; } " \
-                "QMenuBar::item { font-size:12px;padding-bottom:12px;padding-top:12px;padding-left:15px;padding-right:15px;color:rgb(0,51,102); background-color: transparent; } " \
-                "QMenuBar::item:selected { color: white; background-color:rgb(240,130,57); }"
-                "TxViewDelegate { border: 2px; border-bottom-color: grey; } " \
-                "QIcon {}" \
-                "QTabWidget {background-color:rbg(14,105,162); }" \
-                "#debug QLabel {color: white; }" \
-                "QLineEdit {}" \
-                "QPushButton {}" \
-                "QStackedWidget {}" \
-                "QDateTime {}"
+                "#frame { } QToolBar QLabel { padding-top:15px;padding-bottom:10px;margin:0px; border: 0px;  border-color: yellow;} "
     );
+
 
 #ifndef Q_OS_MAC
     QApplication::setWindowIcon(QIcon(":icons/bitcoin"));
@@ -326,24 +300,26 @@ void BitcoinGUI::createMenuBar()
 void BitcoinGUI::createToolBars()
 {
     QToolBar *toolbar = addToolBar(tr("Tabs toolbar"));
+    toolbar->setObjectName("toolbar");
     toolbar->setMovable(false);
     QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     toolbar->setSizePolicy(sizePolicy);
     toolbar->setStyleSheet("QToolBar { border: 0px; }");
 
-    toolbar->setToolButtonStyle(Qt::ToolButtonTextOnly);
+    toolbar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     toolbar->addAction(overviewAction);
     toolbar->addAction(sendCoinsAction);
     toolbar->addAction(receiveCoinsAction);
     toolbar->addAction(historyAction);
     toolbar->addAction(addressBookAction);
     QWidget *separator = new QWidget(this);
+    separator->setObjectName("separator");
     separator->setSizePolicy(QSizePolicy::Expanding,
                              QSizePolicy::Fixed);
     separator->setMinimumWidth(10);
     separator->setMaximumWidth(99999999);
 
-    //toolbar->addWidget(separator);
+    toolbar->addWidget(separator);
     //toolbar->resize(10000,toolbar->height());
 }
 

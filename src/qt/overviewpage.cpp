@@ -15,7 +15,7 @@
 #include <QPainter>
 
 #define DECORATION_SIZE 64
-#define NUM_ITEMS 6
+#define NUM_ITEMS 4
 
 class TxViewDelegate : public QAbstractItemDelegate
 {
@@ -29,22 +29,18 @@ public:
     inline void paint(QPainter *painter, const QStyleOptionViewItem &option,
                       const QModelIndex &index ) const
     {
+
         painter->save();
 
-//        QIcon icon = qvariant_cast<QIcon>(index.data(Qt::DecorationRole));
+        QIcon icon = qvariant_cast<QIcon>(index.data(Qt::DecorationRole));
         QRect mainRect = option.rect;
-//        QRect decorationRect(mainRect.topLeft(), QSize(DECORATION_SIZE, DECORATION_SIZE));
-//        int xspace = DECORATION_SIZE + 8;
-        int xspace = 8;
+        QRect decorationRect(mainRect.topLeft(), QSize(DECORATION_SIZE, DECORATION_SIZE));
+        int xspace = DECORATION_SIZE + 8;
         int ypad = 6;
-//        int halfheight = (mainRect.height() - 2*ypad)/2;
-        int halfheight = 4*ypad;
-//        QRect amountRect(mainRect.left() + xspace, mainRect.top()+ypad, mainRect.width() - xspace, halfheight);
-        QRect amountRect(mainRect.left(), mainRect.top()+ypad, mainRect.width() - xspace, halfheight);
-//        QRect addressRect(mainRect.left() + xspace, mainRect.top()+ypad+halfheight, mainRect.width() - xspace, halfheight);
-        QRect addressRect(mainRect.left() + 120 + xspace, mainRect.top()+ypad, mainRect.width() - 240, halfheight);
-//        icon.paint(painter, decorationRect);
-        QLine bottomLine(amountRect.left(), amountRect.bottom() + xspace, amountRect.width(), amountRect.bottom() + xspace);
+        int halfheight = (mainRect.height() - 2*ypad)/2;
+        QRect amountRect(mainRect.left() + xspace, mainRect.top()+ypad, mainRect.width() - xspace, halfheight);
+        QRect addressRect(mainRect.left() + xspace, mainRect.top()+ypad+halfheight, mainRect.width() - xspace, halfheight);
+        icon.paint(painter, decorationRect);
 
         QDateTime date = index.data(TransactionTableModel::DateRole).toDateTime();
         QString address = index.data(Qt::DisplayRole).toString();
@@ -57,9 +53,6 @@ public:
             QBrush brush = qvariant_cast<QBrush>(value);
             foreground = brush.color();
         }
-
-        painter->setPen(foreground);
-        painter->drawLine(bottomLine);
 
         painter->setPen(foreground);
         painter->drawText(addressRect, Qt::AlignLeft|Qt::AlignVCenter, address);
@@ -88,6 +81,7 @@ public:
         painter->drawText(amountRect, Qt::AlignLeft|Qt::AlignVCenter, GUIUtil::dateTimeStr(date));
 
         painter->restore();
+
     }
 
     inline QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
@@ -181,7 +175,7 @@ void OverviewPage::setWalletModel(WalletModel *model)
         // Set up transaction list
         filter = new TransactionFilterProxy();
         filter->setSourceModel(model->getTransactionTableModel());
-        filter->setLimit((int)((ui->listTransactions->height() / 32)-1));
+        filter->setLimit((int)((ui->listTransactions->height() / 64)-1));
         filter->setDynamicSortFilter(true);
         filter->setSortRole(Qt::EditRole);
         filter->sort(TransactionTableModel::Date, Qt::DescendingOrder);

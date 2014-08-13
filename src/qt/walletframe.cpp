@@ -22,13 +22,14 @@ WalletFrame::WalletFrame(BitcoinGUI *_gui) :
      // create the top bar with coin amounts
      frame_coinamount = new QFrame(this);
      frame_coinamount->setObjectName(QString::fromUtf8("frame_coinamount"));
-     frame_coinamount->setGeometry(QRect(0, 0, 905, 50));
+     frame_coinamount->setGeometry(QRect(0, 0, 905, 54));
      QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
      sizePolicy.setHorizontalStretch(0);
      sizePolicy.setVerticalStretch(0);
      sizePolicy.setHeightForWidth(frame_coinamount->sizePolicy().hasHeightForWidth());
      frame_coinamount->setSizePolicy(sizePolicy);
-     frame_coinamount->setMinimumSize(QSize(0, 50));
+     frame_coinamount->setMinimumSize(QSize(0, 54));
+     frame_coinamount->setMaximumHeight(54);
      frame_coinamount->setFrameShape(QFrame::NoFrame);
      frame_coinamount->setFrameShadow(QFrame::Raised);
      frame_coinamount->setLineWidth(0);
@@ -71,17 +72,16 @@ WalletFrame::WalletFrame(BitcoinGUI *_gui) :
      sizePolicy1.setVerticalStretch(0);
      sizePolicy1.setHeightForWidth(lblIcon->sizePolicy().hasHeightForWidth());
      lblIcon->setSizePolicy(sizePolicy1);
-     lblIcon->setMinimumSize(QSize(24, 24));
-     lblIcon->setMaximumSize(QSize(24, 24));
-     lblIcon->setBaseSize(QSize(24, 24));
-     lblIcon->setPixmap(QPixmap(QString::fromUtf8(":/images/splash")));
+     lblIcon->setMinimumSize(QSize(40, 40));
+     lblIcon->setMaximumSize(QSize(40, 40));
+     lblIcon->setBaseSize(QSize(40, 40));
+     lblIcon->setPixmap(QPixmap(QString::fromUtf8(":/icons/balanceicon")));
      lblIcon->setScaledContents(true);
 
      gridLayout->addWidget(lblIcon, 0, 0, 1, 1);
 
      labelBalance = new QLabel(frame_coinamount);
      labelBalance->setObjectName(QString::fromUtf8("labelBalance"));
-     labelBalance->setMinimumSize(QSize(140, 0));
      labelBalance->setFont(font);
      labelBalance->setCursor(QCursor(Qt::IBeamCursor));
      labelBalance->setLayoutDirection(Qt::LeftToRight);
